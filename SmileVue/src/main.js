@@ -4,8 +4,10 @@ import '@/assets/css/base.css'
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import api from './api'
 import {Button, Row, Col,Swipe,SwipeItem,Lazyload} from 'vant'
-require('./assets/util/vconsole.js')
+//require('./assets/util/vconsole.js')
+Vue.prototype.$http = api;
 Vue.use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload)
 
 Vue.config.productionTip = false

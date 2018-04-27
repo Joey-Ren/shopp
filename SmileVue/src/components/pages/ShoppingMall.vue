@@ -89,7 +89,15 @@ export default {
       ]
     };
   },
-  mounted() {}
+  mounted() {
+    this.$http.goods().then((res)=>{
+      console.log(res);
+      
+    }).catch((err)=>{
+      console.log(err);
+      
+    })
+  }
 };
 </script>
 
