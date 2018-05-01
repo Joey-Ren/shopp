@@ -14,6 +14,9 @@ export default {
 </script>
 
 <style>
+#app{
+  background-color: #f0f0f0;
+}
 .null{
   height: 1rem;
   background-color:#e501ad;

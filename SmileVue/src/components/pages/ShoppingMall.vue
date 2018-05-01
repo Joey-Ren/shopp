@@ -12,21 +12,21 @@
     <div class="swipe">
      <van-swipe :autoplay="swipeDate">
         <van-swipe-item  v-for="(imgs,index) in swipeImages" :key="index">
-          <img v-lazy="imgs.imgUrl" alt="">
+          <img v-lazy="imgs.image" alt="">
         </van-swipe-item>
       </van-swipe>
     </div>
     <!-- 分类 -->
    <div class="categorys">
-    <div class="cat" v-for="(item,index) in categorys" :key="index">
-     
-      <span :style="{backgroundColor: item.color }">
-        <img :src="item.imgs" alt="">
-      </span>
-      
-      <p>{{item.name}}</p>
+    <div v-for="(item,index) in categorys" :key="index">
+        <img v-lazy="item.image" alt="">
+        <span>{{item.mallCategoryName}}</span>
     </div>
   
+   </div>
+   <!-- 提示广告 -->
+   <div class="tis">
+      <img v-lazy="advertesPicture.PICTURE_ADDRESS" alt="">
    </div>
   </div>
 </template>
@@ -38,65 +38,24 @@ export default {
       msg: "我是shopmailvue",
       searchMap: require("../../assets/images/searchMap.png"),
       swipeDate: 3000, //图片自动轮播时间间隔
-      // swipeImages: [
-      //   {
-      //     imgUrl: "http://7xjyw1.com1.z0.glb.clouddn.com/simleVueDemoPic001.jpg"
-      //   },
-      //   {
-      //     imgUrl: "http://7xjyw1.com1.z0.glb.clouddn.com/simleVueDemoPic002.jpg"
-      //   },
-      //   {
-      //     imgUrl: "http://7xjyw1.com1.z0.glb.clouddn.com/simleVueDemoPic003.jpg"
-      //   }
-      // ]
-      swipeImages: [
-        {
-          imgUrl: require("../../assets/images/simleVueDemoPic001.jpg")
-        },
-        {
-          imgUrl: require("../../assets/images/simleVueDemoPic002.jpg")
-        },
-        {
-          imgUrl: require("../../assets/images/simleVueDemoPic003.jpg")
-        }
-      ],
-      categorys: [
-        {
-          name: "新鲜水果",
-          imgs: require("../../assets/images/shuiguo.png"),
-          color: "#FECC00"
-        },
-        {
-          name: "中外名酒",
-          imgs: require("../../assets/images/pijiu.png"),
-          color: "#F2750A"
-        },
-        {
-          name: "营养奶品",
-          imgs: require("../../assets/images/niunai.png"),
-          color:'#6EC8DF'
-        },
-        {
-          name: "食品饮料",
-          imgs: require("../../assets/images/yinliao.png"),
-          color:'#CE3B15'
-        },
-        {
-          name: "个人护理",
-          imgs: require("../../assets/images/huli.png"),
-          color:'#DBE369'
-        }
-      ]
+      swipeImages: [], //轮播图
+      categorys: [], //分类
+      advertesPicture: "" //提示广告
     };
   },
   mounted() {
-    this.$http.goods().then((res)=>{
-      console.log(res);
-      
-    }).catch((err)=>{
-      console.log(err);
-      
-    })
+    this.$http
+      .goods()
+      .then(res => {
+        this.swipeImages = res.data.slides; //轮播图
+        this.categorys = res.data.category; //分类信息
+        this.advertesPicture = res.data.advertesPicture; //提示广告
+
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 };
 </script>
@@ -138,47 +97,25 @@ export default {
   }
 }
 .categorys {
-  height: pxRem(80);
-  background-color: #fff;
-  padding-top: pxRem(12);
-  padding-bottom: pxRem(6);
+  margin: 0.3rem 0.3rem 0.3rem 0.3rem;
   display: flex;
-  justify-content: space-around;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  font-size: 14px;
+  background-color: #fff;
   text-align: center;
-  font-size: 12px;
-  cursor: pointer;
-  span {
-    display: block;
-    width: pxRem(50);
-    height: pxRem(45);
-   
-    border-radius: pxRem(10);
-    line-height: pxRem(72);
-    margin-bottom: pxRem(3);
+  border-radius: 0.3rem;
+  div {
+    padding: 0.3rem;
     img {
-      width: 80%;
-      height: 80%;
+      width: 90%;
     }
   }
 }
-.blue1 {
-  width: 15%;
-
-  background-color: blue;
-}
-.blue2 {
-  width: 15%;
-
-  background-color: palegreen;
-}
-.blue3 {
-  width: 15%;
-
-  background-color: salmon;
-}
-.blue4 {
-  width: 15%;
-
-  background-color: aqua;
+.tis {
+  text-align: center;
+  img {
+    width: 100%;
+  }
 }
 </style>
