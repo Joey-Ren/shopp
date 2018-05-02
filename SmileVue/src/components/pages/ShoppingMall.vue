@@ -101,7 +101,7 @@ export default {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  font-size: 14px;
+  font-size: 13px;
   background-color: #fff;
   text-align: center;
   border-radius: 0.3rem;
