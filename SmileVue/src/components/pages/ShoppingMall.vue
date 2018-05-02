@@ -28,6 +28,28 @@
    <div class="tis">
       <img v-lazy="advertesPicture.PICTURE_ADDRESS" alt="">
    </div>
+   <!-- 商品推荐 -->
+   <div class="recommends">
+     <p>商品推荐</p>
+     <div class="recommend">
+        <div v-for="(recommends,index) in recommends" :key="index" class="van-hairline--surround">
+          <img v-lazy="recommends.image" alt="">
+          <span>¥ {{recommends.price}}</span><br>
+          <span class="s2">¥ {{recommends.price}}</span>
+          <span class="reco">推荐</span>
+        </div>
+     </div>
+   </div>
+   <!-- 商品楼层 -->
+     <div class="floor" v-for="(floor,index) in floors" :key="index">
+       <p><span>{{index+1}}F</span> {{floor.floorName}}</p>
+       <div class="floord">
+          <div v-for="(floo,index) in floor.floor" :key="index" class="van-hairline--surround">
+          <img v-lazy="floo.image" alt="">
+          </div>
+       </div>
+        
+     </div>
   </div>
 </template>
 
@@ -40,7 +62,11 @@ export default {
       swipeDate: 3000, //图片自动轮播时间间隔
       swipeImages: [], //轮播图
       categorys: [], //分类
-      advertesPicture: "" //提示广告
+      advertesPicture: "", //提示广告
+      recommends: [], //商品推荐
+      floors:[], //楼层内容
+      
+      
     };
   },
   mounted() {
@@ -50,8 +76,16 @@ export default {
         this.swipeImages = res.data.slides; //轮播图
         this.categorys = res.data.category; //分类信息
         this.advertesPicture = res.data.advertesPicture; //提示广告
-
-        console.log(res);
+        this.recommends = res.data.recommend; //商品推荐
+        this.floorName = res.data.floorName;
+      
+        console.log(res.data,'dataaaaaaaaa-=====');
+        for (const key in this.floorName) {
+           this.floors.push({
+             "floorName":this.floorName[key],
+             "floor":res.data[key]
+           })
+        }
       })
       .catch(err => {
         console.log(err);
@@ -116,6 +150,71 @@ export default {
   text-align: center;
   img {
     width: 100%;
+  }
+}
+.recommends{
+ background-color: #fff;
+ p{
+   color:red;
+   font-size: 14px;
+   text-align: center;
+ }
+}
+.recommend {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  text-align: center;
+  font-size: 14px;
+  position: relative;
+  div {
+    img {
+      width: 90%;
+    }
+    .s2 {
+      font-size: 2px;
+      color: #999;
+      text-decoration: line-through;
+    }
+    .reco{
+      position: absolute;
+      top: 35px;
+      right: 0px;
+      font-size: 12px;
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+      background-color: #DD2C07;
+      color: #fff;
+      width: pxRem(44);
+    }
+  }
+}
+.floor{
+  p{
+    text-align: center;
+    color: red;
+    margin: 5px 0;
+    span{
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      color: #fff;
+      border-radius: 50%;
+      background-color:red;
+      line-height: 20px;
+    }
+  }
+  .floord{
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    div{
+      width: 50%;
+    img{
+      width: 100%;
+    }
+    }
+    
   }
 }
 </style>
