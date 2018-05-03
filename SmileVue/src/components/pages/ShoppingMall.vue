@@ -29,15 +29,25 @@
       <img v-lazy="advertesPicture.PICTURE_ADDRESS" alt="">
    </div>
    <!-- 商品推荐 -->
-   <div class="recommends">
-     <p>商品推荐</p>
-     <div class="recommend">
-        <div v-for="(recommends,index) in recommends" :key="index" class="van-hairline--surround">
-          <img v-lazy="recommends.image" alt="">
-          <span>¥ {{recommends.price}}</span><br>
-          <span class="s2">¥ {{recommends.price}}</span>
-          <span class="reco">推荐</span>
-        </div>
+   <div class="recommend">
+     <div class="recommend-title">
+       商品推荐
+     </div>
+     <div class="recommend-body">
+       <swiper :options="swiperOption">
+        <swiper-slide v-for=" (item ,index) in recommends" :key="index">
+          <div class="recommend-item">
+            
+                <img v-lazy="item.image"/>
+                <div>{{item.goodsName}}</div>
+                <div>￥{{item.price}} (￥{{item.mallPrice}})</div>
+                
+           </div>
+            
+         </swiper-slide>
+         <div class="swiper-button-prev" slot="button-prev"></div>
+          <div class="swiper-button-next" slot="button-next"></div>
+      </swiper>
      </div>
    </div>
    <!-- 商品楼层 -->
@@ -65,6 +75,12 @@ export default {
       advertesPicture: "", //提示广告
       recommends: [], //商品推荐
       floors:[], //楼层内容
+      swiperOption: {
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
+          }
+        }
       
       
     };
@@ -152,56 +168,45 @@ export default {
     width: 100%;
   }
 }
-.recommends{
- background-color: #fff;
- p{
-   color:red;
-   font-size: 14px;
-   text-align: center;
- }
-}
-.recommend {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  text-align: center;
-  font-size: 14px;
-  position: relative;
-  div {
-    img {
-      width: 90%;
-    }
-    .s2 {
-      font-size: 2px;
-      color: #999;
-      text-decoration: line-through;
-    }
-    .reco{
-      position: absolute;
-      top: 35px;
-      right: 0px;
-      font-size: 12px;
-      border-top-left-radius: 20px;
-      border-bottom-left-radius: 20px;
-      background-color: #DD2C07;
-      color: #fff;
-      width: pxRem(44);
+//商品推荐
+.recommend{
+  background-color: #fff;
+  margin-top: 0.3rem;
+  
+  .recommend-title{
+    color:#e5017d;
+    padding:0.3rem;
+    text-align: center;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+  }
+  .recommend-body{
+    border-bottom: 1px solid #eee;
+    .recommend-item{
+      text-align: center;
+      font-size: 14px;
+      margin-bottom: 0.3rem;
+      img{
+        width: 80%;
+      }
     }
   }
+  
 }
 .floor{
   p{
     text-align: center;
-    color: red;
+    color: #e5017d;
     margin: 5px 0;
+    font-size: 14px;
     span{
       display: inline-block;
-      width: 20px;
-      height: 20px;
+      width: 25px;
+      height: 25px;
       color: #fff;
       border-radius: 50%;
       background-color:red;
-      line-height: 20px;
+      line-height: 25px;
     }
   }
   .floord{
