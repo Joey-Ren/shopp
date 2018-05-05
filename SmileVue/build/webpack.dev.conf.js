@@ -9,17 +9,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
-
-let HOST ;
-let ipconfig = 'env'  //fig是本地ip;env是localhost
-switch(ipconfig){
-  case "fig":
-   HOST = '192.168.10.157';
-  break;
-  case "env":
-   HOST = process.env.HOST
-  break;
-}
+const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
 const devWebpackConfig = merge(baseWebpackConfig, {

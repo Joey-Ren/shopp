@@ -3,6 +3,16 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
+let HOST ;
+let ipconfig = 'fig'  //fig是本地ip;env是localhost
+switch(ipconfig){
+  case "fig":
+   HOST = '192.168.9.30';
+  break;
+  case "env":
+   HOST = 'localhost'
+  break;
+}
 
 module.exports = {
   dev: {
@@ -13,7 +23,7 @@ module.exports = {
     proxyTable: {},
 
     // Various Dev Server settings
-    host: 'localhost', // can be overwritten by process.env.HOST
+    host: HOST, // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
