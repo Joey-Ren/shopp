@@ -45,8 +45,6 @@
            </div>
             
          </swiper-slide>
-         <div class="swiper-button-prev" slot="button-prev"></div>
-          <div class="swiper-button-next" slot="button-next"></div>
       </swiper>
      </div>
    </div>
@@ -76,10 +74,8 @@ export default {
       recommends: [], //商品推荐
       floors:[], //楼层内容
       swiperOption: {
-          navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev'
-          },
+        
+          slidesPerView: 3,
           autoplay: {
             delay: 2500,
             disableOnInteraction: false
