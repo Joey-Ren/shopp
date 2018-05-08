@@ -5,64 +5,104 @@
       <van-row gutter="10">
         <van-col span="3"><img :src="searchMap" alt="地图icon" class="searchMap"></van-col>
         <van-col span="16" class="searchsss"><input type="text" placeholder="查找" class="searchInput"></van-col>
-        <van-col span="5"><van-button size="mini">搜索</van-button></van-col>
+        <van-col span="5">
+          <van-button size="mini">搜索</van-button>
+        </van-col>
       </van-row>
     </div>
     <!-- 轮播图 -->
     <div class="swipe">
-     <van-swipe :autoplay="swipeDate">
-        <van-swipe-item  v-for="(imgs,index) in swipeImages" :key="index">
-          <img v-lazy="imgs.image" alt="">
+      <van-swipe :autoplay="swipeDate">
+
+        <van-swipe-item v-for="(imgs,index) in swipeImages" :key="index">
+          <router-link :to="{'name':'gooddetails',params:{goodId:imgs.goodsId}}">
+            <img v-lazy="imgs.image" alt="">
+
+          </router-link>
+
         </van-swipe-item>
       </van-swipe>
     </div>
     <!-- 分类 -->
-   <div class="categorys">
-    <div v-for="(item,index) in categorys" :key="index">
-        <img v-lazy="item.image" alt="">
-        <span>{{item.mallCategoryName}}</span>
+    <div class="categorys">
+      <div v-for="(item,index) in categorys" :key="index">
+        <router-link to="/gooddetails">
+          <img v-lazy="item.image" alt="">
+          <span>{{item.mallCategoryName}}</span>
+        </router-link>
+
+      </div>
+
     </div>
-  
-   </div>
-   <!-- 提示广告 -->
-   <div class="tis">
+    <!-- 提示广告 -->
+    <div class="tis">
       <img v-lazy="advertesPicture.PICTURE_ADDRESS" alt="">
-   </div>
-   <!-- 商品推荐 -->
-   <div class="recommend">
-     <div class="recommend-title">
-       商品推荐
-     </div>
-     <div class="recommend-body">
-       <swiper :options="swiperOption">
-        <swiper-slide v-for=" (item ,index) in recommends" :key="index">
-          <div class="recommend-item">
-            
-                <img v-lazy="item.image"/>
+    </div>
+    <!-- 商品推荐 -->
+    <div class="recommend">
+      <div class="recommend-title">
+        商品推荐
+      </div>
+      <div class="recommend-body">
+        <swiper :options="swiperOption">
+          <swiper-slide v-for=" (item ,index) in recommends" :key="index">
+            <div class="recommend-item">
+              <router-link :to="{'name':'gooddetails',params:{goodId:item.goodsId}}">
+                <img v-lazy="item.image" />
                 <div>{{item.goodsName}}</div>
                 <div>￥{{item.price}} (￥{{item.mallPrice}})</div>
-                
-           </div>
-            
-         </swiper-slide>
-      </swiper>
-     </div>
-   </div>
-   <!-- 商品楼层 -->
-     <div class="floor" v-for="(floor,index) in floors" :key="index">
-       <p><span>{{index+1}}F</span> {{floor.floorName}}</p>
-       <div class="floord">
-          <div v-for="(floo,index) in floor.floor" :key="index" class="van-hairline--surround">
-          <img v-lazy="floo.image" alt="">
+
+              </router-link>
+
+            </div>
+
+          </swiper-slide>
+        </swiper>
+      </div>
+    </div>
+    <!-- 商品楼层 -->
+    <div class="floor" v-for="(floor,index) in floors" :key="index">
+      <p>
+        <span>{{index+1}}F</span> {{floor.floorName}}</p>
+      <div class="floord">
+        <div class="floord-h">
+          <div class="f-left">
+            <router-link :to="{'name':'gooddetails',params:{goodId:floor.floor[0].goodsId}}">
+              <img v-lazy="floor.floor[0].image" alt="">
+            </router-link>
           </div>
-       </div>
-        
-     </div>
+          <div class="f-right">
+            <div>
+              <router-link :to="{'name':'gooddetails',params:{goodId:floor.floor[1].goodsId}}">
+                <img v-lazy="floor.floor[1].image" alt="">
+              </router-link>
+
+            </div>
+            <div>
+              <router-link :to="{'name':'gooddetails',params:{goodId:floor.floor[2].goodsId}}">
+                <img v-lazy="floor.floor[2].image" alt="">
+              </router-link>
+            </div>
+          </div>
+        </div>
+        <div class="floord-b">
+          <div v-for="(floo,index) in floor.floor.slice(3)" :key="index">
+            <router-link :to="{'name':'gooddetails',params:{goodId:floo.goodsId}}">
+              <img v-lazy="floo.image" alt="">
+            </router-link>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+  name: "shoppingMall",
   data() {
     return {
       msg: "我是shopmailvue",
@@ -72,17 +112,14 @@ export default {
       categorys: [], //分类
       advertesPicture: "", //提示广告
       recommends: [], //商品推荐
-      floors:[], //楼层内容
+      floors: [], //楼层内容
       swiperOption: {
-        
-          slidesPerView: 3,
-          autoplay: {
-            delay: 2500,
-            disableOnInteraction: false
-          }
+        slidesPerView: 3,
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false
         }
-      
-      
+      }
     };
   },
   mounted() {
@@ -94,14 +131,15 @@ export default {
         this.advertesPicture = res.data.advertesPicture; //提示广告
         this.recommends = res.data.recommend; //商品推荐
         this.floorName = res.data.floorName;
-      
-        console.log(res.data,'dataaaaaaaaa-=====');
+
+        console.log(res.data, "dataaaaaaaaa-=====");
         for (const key in this.floorName) {
-           this.floors.push({
-             "floorName":this.floorName[key],
-             "floor":res.data[key]
-           })
+          this.floors.push({
+            floorName: this.floorName[key],
+            floor: res.data[key]
+          });
         }
+        console.log(this.floors);
       })
       .catch(err => {
         console.log(err);
@@ -169,57 +207,82 @@ export default {
   }
 }
 //商品推荐
-.recommend{
+.recommend {
   background-color: #fff;
   margin-top: 0.3rem;
-  
-  .recommend-title{
-    color:#e5017d;
-    padding:0.3rem;
+
+  .recommend-title {
+    color: #e5017d;
+    padding: 0.3rem;
     text-align: center;
     font-size: 14px;
     border-bottom: 1px solid #eee;
   }
-  .recommend-body{
+  .recommend-body {
     border-bottom: 1px solid #eee;
-    .recommend-item{
+    .recommend-item {
       text-align: center;
       font-size: 14px;
       margin-bottom: 0.3rem;
-      img{
+      img {
         width: 80%;
       }
     }
   }
-  
 }
-.floor{
-  p{
+.floor {
+  p {
     text-align: center;
     color: #e5017d;
     margin: 5px 0;
     font-size: 14px;
-    span{
+    span {
       display: inline-block;
       width: 25px;
       height: 25px;
       color: #fff;
       border-radius: 50%;
-      background-color:red;
+      background-color: red;
       line-height: 25px;
     }
   }
-  .floord{
-    display:flex;
+  .floord-b {
+    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    div{
+    div {
+      border: 1px solid #eee;
       width: 50%;
-    img{
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+.floord-h {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.f-left {
+  width: 50%;
+  height: pxRem(195);
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+.f-right {
+  width: 50%;
+  height: pxRem(195);
+  div {
+    height: 50%;
+    border: 1px solid #eee;
+    img {
       width: 100%;
+      height: 100%;
     }
-    }
-    
   }
 }
 </style>
