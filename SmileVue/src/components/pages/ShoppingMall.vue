@@ -263,25 +263,27 @@ export default {
 .floord-h {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
-}
-.f-left {
-  width: 50%;
-  height: pxRem(195);
-  img {
+  a {
+    display: inline-block;
     width: 100%;
     height: 100%;
   }
 }
+.f-left {
+  img {
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+  }
+  border-right: 1px solid #eee;
+}
 .f-right {
-  width: 50%;
-  height: pxRem(195);
   div {
-    height: 50%;
-    border: 1px solid #eee;
+    border-bottom: 1px solid #eee;
     img {
       width: 100%;
       height: 100%;
+      vertical-align: middle;
     }
   }
 }
