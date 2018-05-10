@@ -264,19 +264,19 @@ export default {
 .floord-h {
   display: flex;
   flex-direction: row;
+}
+.f-left {
+  border-right: 1px solid #eee;
   a {
     display: inline-block;
     width: 100%;
     height: 100%;
+    img {
+      width: 100%;
+      height: 100%;
+      vertical-align: middle;
+    }
   }
-}
-.f-left {
-  img {
-    width: 100%;
-    height: 100%;
-    vertical-align: middle;
-  }
-  border-right: 1px solid #eee;
 }
 .f-right {
   div {
@@ -284,7 +284,7 @@ export default {
     img {
       width: 100%;
       height: 100%;
-      vertical-align:middle;
+      vertical-align: middle;
     }
   }
 }
