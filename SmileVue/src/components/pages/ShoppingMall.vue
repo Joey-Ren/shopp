@@ -256,6 +256,7 @@ export default {
       img {
         width: 100%;
         height: 100%;
+        vertical-align: middle;
       }
     }
   }
@@ -283,7 +284,7 @@ export default {
     img {
       width: 100%;
       height: 100%;
-      vertical-align: middle;
+      vertical-align:middle;
     }
   }
 }
