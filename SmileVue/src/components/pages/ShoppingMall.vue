@@ -275,6 +275,8 @@ export default {
       width: 100%;
       height: 100%;
       vertical-align: middle;
+      position: relative;
+      top: 2px;
     }
   }
 }
