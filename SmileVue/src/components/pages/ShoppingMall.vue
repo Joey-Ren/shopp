@@ -266,7 +266,9 @@ export default {
   flex-direction: row;
 }
 .f-left {
+  border-bottom: 1px solid #eee;
   border-right: 1px solid #eee;
+  background-color: #fff;
   a {
     display: inline-block;
     width: 100%;
@@ -275,8 +277,7 @@ export default {
       width: 100%;
       height: 100%;
       vertical-align: middle;
-      position: relative;
-      top: 2px;
+    
     }
   }
 }
