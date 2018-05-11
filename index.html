@@ -1,0 +1,24 @@
+<!DOCTYPE html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"><title>smilevue</title><link href=./static/css/app.01ca351104e4658883eafc9c70df836d.css rel=stylesheet></head><body><div id=UCshow style=height:44px;display:none></div><div id=app></div><script>(function (doc, win) {
+      // if(/(UCBrowser)/gi.test(navigator.userAgent)){
+      //   console.log('我是uc浏览器');
+      //   var uc = document.getElementById('UCshow')
+      //   uc.style.display = 'block';
+      // }
+      /*  1rem=16px  */
+      resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+        recalc = function () {
+          var clientWidth = doc.clientWidth || doc.body.clientWidth;
+          if (!clientWidth) return;
+          if (clientWidth <= 320) {
+            clientWidth = 320
+          } else if (clientWidth >= 750) {
+            clientWidth = 750
+          }
+          var docHTML = doc.getElementsByTagName('html')[0];
+          docHTML.style.fontSize = clientWidth / 23.43 + 'px'; 
+          //这里的20是根据iPhone5/se的宽度320px,然后html的fontsize是1rem=16px得到的,假如html的font-size要设置1rem=14px,那么20就改变为320/14 = 22.85;这里的23.4是以iPhone6的宽度375px除以16px得到;
+        };
+      win.addEventListener(resizeEvt, recalc, false);
+      doc.addEventListener('DOMContentLoaded', recalc, false);
+
+    })(document, window);</script><script type=text/javascript src=./static/js/manifest.3ad1d5771e9b13dbdad2.js></script><script type=text/javascript src=./static/js/vendor.e722ecc15899c4ce5124.js></script><script type=text/javascript src=./static/js/app.475b819493f66dd7c811.js></script></body></html>
