@@ -1,6 +1,7 @@
 <template>
   <div id="app" class="van-hairline--surround">
-    <div class="null"></div><router-view/>
+   
+    <router-view/>
   </div>
 </template>
 
@@ -17,8 +18,5 @@ export default {
 #app{
   background-color: #f0f0f0;
 }
-.null{
-  height: 1rem;
-  background-color:#e501ad;
-}
+
 </style>

@@ -12,6 +12,9 @@ import {Button, Row, Col,Swipe,SwipeItem,Lazyload} from 'vant'
 require('./assets/util/vconsole.js')
 Vue.prototype.$http = api;
 Vue.use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload).use(VueAwesomeSwiper, /* { default global options } */)
+import alert from './components/alert'
+Vue.use(alert)
+// 使用插件的形式开发alert弹窗全局组件
 
 //注入全局过滤器
 Object.keys(filters).forEach((key)=>{
