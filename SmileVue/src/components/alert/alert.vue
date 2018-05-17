@@ -1,5 +1,5 @@
 <template>
-    <div class="alert">
+    <div class="alert" transition="modal-scale">
         <div class="alert-mask"></div>
         <div class="alert-content"><div>弹窗内容</div></div>
     </div>
@@ -41,5 +41,20 @@ export default {};
     justify-content: center;
     align-items: center;
     color: #fff;
+}
+.modal-scale-transition{
+  transition: transform,opacity .3s ease;
+}
+
+.modal-scale-enter,
+.modal-scale-leave {
+    opacity: 0;
+}
+
+.modal-scale-enter {
+  transform: scale(1.1);
+}
+.modal-scale-leave {
+  transform: scale(0.8);
 }
 </style>
