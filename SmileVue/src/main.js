@@ -4,6 +4,7 @@ import '@/assets/css/base.css'
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import filters  from './filter/'
 import api from './api'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/dist//css//swiper.css'
@@ -12,6 +13,10 @@ require('./assets/util/vconsole.js')
 Vue.prototype.$http = api;
 Vue.use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload).use(VueAwesomeSwiper, /* { default global options } */)
 
+//注入全局过滤器
+Object.keys(filters).forEach((key)=>{
+  Vue.filter(key,filters[key])
+})
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
