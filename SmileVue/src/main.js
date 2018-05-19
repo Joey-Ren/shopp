@@ -7,14 +7,17 @@ import router from './router'
 import filters  from './filter/'
 import api from './api'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
-import 'swiper/dist//css//swiper.css'
+import 'swiper/dist/css//swiper.css'
 import {Button, Row, Col,Swipe,SwipeItem,Lazyload,List} from 'vant'
-require('./assets/util/vconsole.js')
-Vue.prototype.$http = api;
-Vue.use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload).use(VueAwesomeSwiper, /* { default global options } */).use(List)
 import alert from './components/alert'
 import loading from './components/loading/'
-Vue.use(alert).use(loading)
+import store from './store'
+require('./assets/util/vconsole.js')
+Vue.prototype.$http = api;
+Vue.use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload).use(VueAwesomeSwiper, /* { default global options } */).use(List).use(alert).use(loading)
+
+
+
 // 使用插件的形式开发alert弹窗全局组件
 
 //注入全局过滤器
@@ -25,6 +28,7 @@ Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
+  store,
   el: '#app',
   router,
   components: { App },
