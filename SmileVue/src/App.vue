@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="van-hairline--surround">
-   
+   <load></load>
     <router-view/>
   </div>
 </template>

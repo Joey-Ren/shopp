@@ -1,5 +1,5 @@
 export default {
-    'na':function(value){
-        return `<--${value}-->`
+    'money':function(value){
+        return `¥${value}`
     }
 }

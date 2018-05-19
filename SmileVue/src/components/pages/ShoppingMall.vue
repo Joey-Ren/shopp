@@ -49,24 +49,24 @@
             <div class="recommend-item">
               <router-link :to="{'name':'gooddetails',params:{goodId:item.goodsId}}">
                 <img v-lazy="item.image" />
-                <div>{{item.goodsName}}</div>
-                <div>￥{{item.price}} (￥{{item.mallPrice}})</div>
-
+                <div :title="item.goodsName">{{item.goodsName}}</div>
+                <div>{{item.price|money}} ({{item.mallPrice|money}})</div>
               </router-link>
-
             </div>
-
           </swiper-slide>
         </swiper>
       </div>
     </div>
     <!-- 商品楼层 -->
     <floor :floorData="floors"></floor>
+    <!-- 热卖商品goods -->
+    <goods :hotGoods="goods"></goods>
   </div>
 </template>
 
 <script>
-import floor from '../component/floor'
+import floor from "../component/floor";
+import goods from "../component/goods";
 export default {
   name: "shoppingMall",
   data() {
@@ -78,7 +78,8 @@ export default {
       categorys: [], //分类
       advertesPicture: "", //提示广告
       recommends: [], //商品推荐
-      floors: [], //楼层内容
+      floors: [], //楼层内容,
+      goods: [], //热卖商品
       swiperOption: {
         slidesPerView: 3,
         autoplay: {
@@ -88,8 +89,9 @@ export default {
       }
     };
   },
-  components:{
-    floor
+  components: {
+    floor,
+    goods
   },
   mounted() {
     this.$http
@@ -99,8 +101,8 @@ export default {
         this.categorys = res.data.category; //分类信息
         this.advertesPicture = res.data.advertesPicture; //提示广告
         this.recommends = res.data.recommend; //商品推荐
-        this.floorName = res.data.floorName;
-
+        this.floorName = res.data.floorName; //楼层数据
+        this.goods = res.data.hotGoods; //热卖商品
         console.log(res.data, "dataaaaaaaaa-=====");
         for (const key in this.floorName) {
           this.floors.push({
@@ -119,7 +121,7 @@ export default {
 
 <style scoped lang="scss">
 @function pxRem($px) {
-  @return $px/16+rem;
+  @return $px/16 + rem;
 }
 .searchBar {
   height: pxRem(44);
@@ -196,8 +198,12 @@ export default {
       img {
         width: 80%;
       }
+      div {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
     }
   }
 }
-
 </style>
