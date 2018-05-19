@@ -1,3 +1,3 @@
 export default {
-    isLoading: false
+    isLoading: false //是否显示loading效果组件
   }
