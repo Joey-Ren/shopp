@@ -1,25 +1,42 @@
 <template>
-    <div class="goods">
-        <div class="goodTitle">热卖商品</div>
-        <van-list>
-            <div class="goodContent">
-                <div v-for="(item,index) in hotGoods" :key="index">
-                    <router-link :to="{'name':'gooddetails',params:{goodId:item.goodsId}}">
-                        <img v-lazy="item.image" alt="">
-                        <p :title="item.name">{{item.name}}</p>
-                        <p>{{item.price|money}}</p>
-                    </router-link>
-                </div>
-            </div>
-        </van-list>
-    </div>
+  <div class="goods">
+    <div class="goodTitle">热卖商品</div>
+    <van-list>
+      <div class="goodContent">
+        <div v-for="(item,index) in allGoods" :key="index">
+          <router-link :to="{'name':'gooddetails',params:{goodId:item.goodsId}}">
+            <img v-lazy="item.image" alt="">
+            <p :title="item.name">{{item.name}}</p>
+            <p>{{item.price|money}}</p>
+          </router-link>
+        </div>
+      </div>
+    </van-list>
+  </div>
 </template>
 
 <script>
 export default {
   props: ["hotGoods"],
   data() {
-    return {};
+    return {
+    
+    };
+  },
+  watch: {
+    hotGoods: function(newVal, oldVal) {
+     // this.allGoods = newVal;
+    },
+    deep: true,
+    immediate: true
+  },
+  computed: {
+   allGoods:function (){
+     return this.hotGoods
+   }
+  },
+  methods: {
+  
   }
 };
 </script>
@@ -45,7 +62,7 @@ export default {
     text-align: center;
     width: 49%;
     margin-bottom: pxRem(5);
-    padding-bottom:pxRem(5);
+    padding-bottom: pxRem(5);
 
     a {
       width: 100%;
