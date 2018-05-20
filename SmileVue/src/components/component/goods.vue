@@ -17,26 +17,35 @@
 
 <script>
 export default {
-  props: ["hotGoods"],
+  props: {
+    hotGoods:{
+      type:Array,
+      required: true,
+    }
+  },
   data() {
     return {
-    
+      allGoods:[]
     };
   },
   watch: {
     hotGoods: function(newVal, oldVal) {
-     // this.allGoods = newVal;
+      this.allGoods = newVal;
     },
     deep: true,
     immediate: true
   },
   computed: {
-   allGoods:function (){
-     return this.hotGoods
-   }
+    gg: function() {
+      return this.hotGoods;
+    }
+  },
+  mounted(){
+     
+
   },
   methods: {
-  
+    
   }
 };
 </script>

@@ -94,27 +94,32 @@ export default {
     goods
   },
   mounted() {
-    this.$http
-      .goods()
-      .then(res => {
-        this.swipeImages = res.data.slides; //轮播图
-        this.categorys = res.data.category; //分类信息
-        this.advertesPicture = res.data.advertesPicture; //提示广告
-        this.recommends = res.data.recommend; //商品推荐
-        this.floorName = res.data.floorName; //楼层数据
-        this.goods = res.data.hotGoods; //热卖商品
-        console.log(res.data, "dataaaaaaaaa-=====");
-        for (const key in this.floorName) {
-          this.floors.push({
-            floorName: this.floorName[key],
-            floor: res.data[key]
-          });
-        }
-        console.log(this.floors);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.good();
+  },
+  methods: {
+    good() {
+      this.$http
+        .goods()
+        .then(res => {
+          this.swipeImages = res.data.slides; //轮播图
+          this.categorys = res.data.category; //分类信息
+          this.advertesPicture = res.data.advertesPicture; //提示广告
+          this.recommends = res.data.recommend; //商品推荐
+          this.floorName = res.data.floorName; //楼层数据
+          this.goods = res.data.hotGoods; //热卖商品
+          console.log(res.data, "dataaaaaaaaa-=====");
+          for (const key in this.floorName) {
+            this.floors.push({
+              floorName: this.floorName[key],
+              floor: res.data[key]
+            });
+          }
+          console.log(this.floors);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   }
 };
 </script>

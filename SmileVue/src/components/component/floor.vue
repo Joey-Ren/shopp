@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="floor" v-for="(floor,index) in floorData" :key="index">
+        <div class="floor" v-for="(floor,index) in floor" :key="index">
             <p>
                 <span>{{index+1}}F</span> {{floor.floorName}}</p>
             <div class="floord">
@@ -41,7 +41,12 @@
 
 <script>
 export default {
-  props: ["floorData"],
+  props: {
+      floorData:{
+          type:Array,
+          required: true,
+      }
+  },
   data() {
     return {
         floor:[]
@@ -50,8 +55,8 @@ export default {
   watch: {
     floorData: function(newV,oldV) {
         /*监听父组件传递来的数据floorData
-        this.floor = newV
         * */
+       this.floor = newV
     }
   }
 };
