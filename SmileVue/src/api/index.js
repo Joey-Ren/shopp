@@ -2,9 +2,21 @@
 //api.js中写
 import axios from 'axios';
 import qs from 'qs'
+import store from '../store'
+axios.interceptors.request.use(config => {
+  store.dispatch('showLoading', true)
+  return config
+}, error => {
+  return Promise.reject(error)
+})
+axios.interceptors.response.use(response => {
+  store.dispatch('hideLoading',false)
+  return response
+}, error => {
+  return Promise.reject(error)
+})
 
 const _ajax = (type, url, data) => {
-
   let Public = { //公共参数  
     'srAppid': ""
   }
@@ -26,6 +38,7 @@ const _ajax = (type, url, data) => {
   let promise = new Promise(function (resolve, reject) {
     axios(httpDefaultOpts).then(
       (res) => {
+        
         if (res.status == '200') {
           resolve(qs.parse(res.data))
         } else {
@@ -36,9 +49,11 @@ const _ajax = (type, url, data) => {
       }
     ).catch(
       (err) => {
-        console.log('ajax请求出错',err);
-        
-        reject(qs.parse({"err":"ajax请求出错"}))
+        store.dispatch('hideLoading',false)
+        console.log('ajax请求出错', err);
+        reject(qs.parse({
+          "err": "ajax请求出错"
+        }))
       }
     )
 
