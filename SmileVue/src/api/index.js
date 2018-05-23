@@ -3,6 +3,8 @@
 import axios from 'axios';
 import qs from 'qs'
 import store from '../store'
+import config from '../config'
+console.log(config,'config')
 axios.interceptors.request.use(config => {
   store.dispatch('showLoading', true)
   return config
@@ -23,7 +25,7 @@ const _ajax = (type, url, data) => {
 
   let httpDefaultOpts = { //axios的配置项---可以添加更多的配置  
     method: type,
-    url: url,
+    url: config.baseUrl+url,
     params: qs.stringify(data),
     data: qs.stringify(data),
   }
@@ -79,6 +81,6 @@ var fetch = (function () {
 
 export default {
   goods: function (data) {
-    return fetch.get("https://www.easy-mock.com/mock/5ae26ea500247c2aa1efe478/shopp/api/floor", data)
+    return fetch.get("/floor", data)
   }
 }
