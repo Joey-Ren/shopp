@@ -27,7 +27,10 @@
     <div class="categorys">
       <div v-for="(item,index) in categorys" :key="index">
         <router-link to="/gooddetails">
-          <img v-lazy="item.image" alt="">
+          
+            <img v-lazy="item.image" alt="">
+          
+
           <span>{{item.mallCategoryName}}</span>
         </router-link>
 
@@ -170,10 +173,19 @@ export default {
   text-align: center;
   border-radius: 0.3rem;
   div {
+    flex: 1;
     padding: 0.3rem;
-    img {
-      width: 90%;
+    a{
+      display:block;
+      width:100%;
+      height:100%;
+       img {
+      width:90%;
+  
+      
     }
+    }
+     
   }
 }
 .tis {
