@@ -14,8 +14,7 @@ import loading from './components/loading/'
 import store from './store'
 require('./assets/util/vconsole.js')
 Vue.prototype.$http = api;
-Vue.use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload).use(VueAwesomeSwiper).use(List).use(alert).use(loading).use(alert)
-
+Vue.use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload).use(VueAwesomeSwiper).use(List).use(loading).use(alert)
 
 //注入全局过滤器
 Object.keys(filters).forEach((key)=>{

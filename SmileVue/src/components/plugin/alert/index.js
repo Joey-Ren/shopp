@@ -5,7 +5,7 @@ let alert = {
 }
 alert.install = (Vue, option) => {
   var $vm
-  Vue.component('alert', alerts)
+  Vue.component('myalert', alerts)
   Vue.prototype.alertShow = function (options = {}) {
     var confi = Vue.extend(alerts)
     if (!$vm) {

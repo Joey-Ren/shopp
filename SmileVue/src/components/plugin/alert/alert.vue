@@ -14,11 +14,11 @@
 </template>
 <script>
 export default {
-  props: ["message", "date", "showbutton"],
+  props: ["message", "date", "showbutton",'showAlert'],
   data() {
     return {
       timer: null, //定时器timer
-      isalert: flase, //是否显示弹窗布尔值  默认不显示
+      isalert: this.showAlert||false, //是否显示弹窗布尔值  默认不显示
       alertTime: this.date || 3000, //弹窗默认显示时间
       msg: this.message || "弹窗消息", //弹窗默认显示的消息,
       showBtn: this.showbutton || false //按钮默认是不显示
