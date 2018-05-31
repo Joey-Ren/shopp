@@ -6,7 +6,7 @@ let ObjectId = Schema.Types.ObjectId
 
 const UserSchema = new Schema({
     UserId:ObjectId,
-    userName:{unique,ture,type:String},
+    userName:{unique:true,type:String},
     passworld:String,
     createAt:{type:Date,default:Date.now()},
     lastLoginAt:{type:Date,default:Date.now()}
@@ -14,4 +14,5 @@ const UserSchema = new Schema({
 })
 
 //发布模型
+
 mongoose.model('User',UserSchema)

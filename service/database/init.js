@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
-const db = 'mongodb://localhost:27017/simle-db'
+const {resolve} = require('path')
+const glob = require('glob')
+const db = 'mongodb://localhost/simledb'
 mongoose.Promise = global.Promise
 // 链接数据库前提是数据库启动了   cmd  mongod --dbpath 存放数据库的文件夹路径(可以直接把文件拖到cmd命令行处)
-
-
 const connect = () => {
     console.log('mongodb')
     //记录链接数据库出错次数
@@ -45,6 +45,12 @@ const connect = () => {
     })
 
 }
+const initSchemas = ()=>{ 
+    console.log('dfasfdjsafdsfdsal;fdsjfdsafdsfdsa')
+    glob.sync(resolve(__dirname,'./schema/','**/*.js')).forEach(require)
+   
+}
 module.exports = {
-    connect
+    connect,
+    initSchemas
 }
