@@ -15,6 +15,7 @@ const connect = () => {
         mongoose.connection.on('disconnected', () => {
             if (maxTimes < 3) {
                 maxTimes++;
+                console.log( maxTimes++,'重连次数')
                 //进行重连
                 mongoose.connect(db)
             } else {
@@ -46,7 +47,7 @@ const connect = () => {
 
 }
 const initSchemas = ()=>{ 
-    console.log('dfasfdjsafdsfdsal;fdsjfdsafdsfdsa')
+    console.log('initSchemas函数调用')
     glob.sync(resolve(__dirname,'./schema/','**/*.js')).forEach(require)
    
 }
