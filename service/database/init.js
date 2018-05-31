@@ -18,6 +18,7 @@ const connect = () => {
                 console.log( maxTimes++,'重连次数')
                 //进行重连
                 mongoose.connect(db)
+                resolve()
             } else {
                 reject();
                 throw new Error('数据库出现问题，程序无法搞定，需要人为修理')
@@ -32,6 +33,7 @@ const connect = () => {
                 maxTimes++;
                 //进行重连
                 mongoose.connect(db)
+                resolve()
             } else {
                 reject();
                 throw new Error('数据库出现问题，程序无法搞定，需要人为修理')
@@ -40,7 +42,7 @@ const connect = () => {
         })
         //链接打开的时候
         mongoose.connection.once('open', () => {
-
+            resolve()
             console.log('mongoodb启动成功')
         })
     })

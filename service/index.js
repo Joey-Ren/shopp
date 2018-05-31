@@ -3,14 +3,15 @@ const mongoose = require('mongoose')
 const app = new Koa()
 const {connect,initSchemas} = require('./database/init.js')
 
+//使用async await new Promise的时候必须resolve(),否则代码不会往下走
 ;(async()=>{
-    initSchemas()
+   await connect()
+   initSchemas()
     const User = mongoose.model('User')
-    let oneUser = new User({userName:'ja5',password:'123456'})
+    let oneUser = new User({userName:'ja5k',password:'123456'})
     oneUser.save().then(()=>{
         console.log('插入成功')
     })
-   await connect()
    
    
 })()
