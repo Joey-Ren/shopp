@@ -2,6 +2,15 @@
   <div>
     <!-- 搜索 -->
     <div class="searchBar">
+
+      <div class="searchMap"><img :src="searchMap" alt="地图icon"></div>
+      <div class="searchsss"><input type="text" placeholder="查找" class="searchInput"></div>
+      <div class="searchBtn">
+        <van-button size="mini">搜索</van-button>
+      </div>
+
+    </div>
+    <!-- <div class="searchBar">
       <van-row gutter="10">
         <van-col span="3"><img :src="searchMap" alt="地图icon" class="searchMap"></van-col>
         <van-col span="16" class="searchsss"><input type="text" placeholder="查找" class="searchInput"></van-col>
@@ -9,7 +18,7 @@
           <van-button size="mini">搜索</van-button>
         </van-col>
       </van-row>
-    </div>
+    </div> -->
     <!-- 轮播图 -->
     <div class="swipe">
       <van-swipe :autoplay="swipeDate">
@@ -27,9 +36,8 @@
     <div class="categorys">
       <div v-for="(item,index) in categorys" :key="index">
         <router-link to="/gooddetails">
-          
-            <img v-lazy="item.image" alt="">
-          
+
+          <img v-lazy="item.image" alt="">
 
           <span>{{item.mallCategoryName}}</span>
         </router-link>
@@ -129,29 +137,47 @@ export default {
 
 <style scoped lang="scss">
 @function pxRem($px) {
-  @return $px/16 + rem;
+  @return $px/100 + rem;
 }
 .searchBar {
-  height: pxRem(44);
+  height: pxRem(88);
   background-color: #e501ad;
-  line-height: pxRem(44);
+  line-height: pxRem(88);
   overflow: hidden;
+  display: flex;
   .searchMap {
-    width: pxRem(20);
-    height: pxRem(20);
-    margin-left: pxRem(15);
-    margin-top: pxRem(12);
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img{
+      width: pxRem(50);
+      height: pxRem(50);
+    }
   }
-  .searchInput {
-    height: pxRem(30);
+  .searchsss {
+    flex: 7;
+    height: 95%;
+    position: relative;
     width: 100%;
-    padding-left: pxRem(10);
-    line-height: pxRem(30);
-    border: none;
-    border-bottom: pxRem(1) solid black;
-    background-color: #e501ad;
-    color: #fff;
-    border-radius: 0;
+    input{
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: pxRem(66);
+      width: 100%;
+      box-sizing: border-box;
+      padding-left: pxRem(10);
+      background-color: #e501ad;
+      border:none;
+      border-bottom: 1px solid #000;
+    }
+  }
+  .searchBtn {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 .swipe {
@@ -159,12 +185,12 @@ export default {
   clear: both;
   img {
     width: 100%;
-    max-height: pxRem(165);
+    max-height: pxRem(360);
     vertical-align: bottom;
   }
 }
 .categorys {
-  margin: 0.3rem 0.3rem 0.3rem 0.3rem;
+  margin: 0.2rem 0.2rem 0 0.2rem;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -174,22 +200,23 @@ export default {
   border-radius: 0.3rem;
   div {
     flex: 1;
-    padding: 0.3rem;
-    a{
-      display:block;
-      width:100%;
-      height:100%;
-       img {
-      width:90%;
-  
-      
+    padding: 0.1rem;
+    a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      img {
+        width: 90%;
+      }
     }
-    }
-     
   }
 }
 .tis {
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: pxRem(100);
   img {
     width: 100%;
   }
@@ -197,11 +224,10 @@ export default {
 //商品推荐
 .recommend {
   background-color: #fff;
-  margin-top: 0.3rem;
 
   .recommend-title {
     color: #e5017d;
-    padding: 0.3rem;
+    padding: 0.2rem;
     text-align: center;
     font-size: 14px;
     border-bottom: 1px solid #eee;

@@ -64,7 +64,7 @@ export default {
 
 <style scoped lang="scss">
 @function pxRem($px) {
-  @return $px/16+rem;
+  @return $px/100+rem;
 }
 .floor {
   p {

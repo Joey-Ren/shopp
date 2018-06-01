@@ -52,14 +52,15 @@ export default {
 
 <style scoped lang="scss">
 @function pxRem($px) {
-  @return $px/16 + rem;
+  @return $px/100 + rem;
 }
 
 .goodTitle {
   text-align: center;
-  line-height: pxRem(30);
   width: 100%;
   color: #e5017d;
+  padding: 0.1rem 0.1rem 0.1rem 0.1rem;
+  font-size: 14px;
 }
 .goodContent {
   display: flex;
