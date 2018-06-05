@@ -108,28 +108,42 @@ export default {
     this.good();
   },
   methods: {
-    good() {
-      this.$http
-        .goods()
-        .then(res => {
-          this.swipeImages = res.data.slides; //轮播图
-          this.categorys = res.data.category; //分类信息
-          this.advertesPicture = res.data.advertesPicture; //提示广告
-          this.recommends = res.data.recommend; //商品推荐
-          this.floorName = res.data.floorName; //楼层数据
-          this.goods = res.data.hotGoods; //热卖商品
-          console.log(res.data, "dataaaaaaaaa-=====");
-          for (const key in this.floorName) {
-            this.floors.push({
-              floorName: this.floorName[key],
-              floor: res.data[key]
-            });
-          }
-          console.log(this.floors);
-        })
-        .catch(err => {
-          console.log(err);
+    async good() {
+      //第一种用法
+      // this.$http.goods().then(res => {
+      //     this.swipeImages = res.data.slides; //轮播图
+      //     this.categorys = res.data.category; //分类信息
+      //     this.advertesPicture = res.data.advertesPicture; //提示广告
+      //     this.recommends = res.data.recommend; //商品推荐
+      //     this.floorName = res.data.floorName; //楼层数据
+      //     this.goods = res.data.hotGoods; //热卖商品
+      //     console.log(res.data, "dataaaaaaaaa-=====");
+      //     for (const key in this.floorName) {
+      //       this.floors.push({
+      //         floorName: this.floorName[key],
+      //         floor: res.data[key]
+      //       });
+      //     }
+      //     console.log(this.floors);
+      //   })
+      //   .catch(err => {
+      //     console.log(err);
+      //   });
+      //第二种使用es6的解构赋值  //这里的第二个data要跟返回的数据名称data对应，比如返回数据名称是newdata，那么就是newdata
+      let { data: { data } } = await this.$http.goods();
+      console.log(data, "es6解构赋值的data");
+      this.swipeImages = data.slides; //轮播图
+      this.categorys = data.category; //分类信息
+      this.advertesPicture = data.advertesPicture; //提示广告
+      this.recommends = data.recommend; //商品推荐
+      this.floorName = data.floorName; //楼层数据
+      this.goods = data.hotGoods; //热卖商品
+      for (const key in this.floorName) {
+        this.floors.push({
+          floorName: this.floorName[key],
+          floor: data[key]
         });
+      }
     }
   }
 };
@@ -150,7 +164,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    img{
+    img {
       width: pxRem(50);
       height: pxRem(50);
     }
@@ -160,7 +174,7 @@ export default {
     height: 95%;
     position: relative;
     width: 100%;
-    input{
+    input {
       position: absolute;
       bottom: 0;
       left: 0;
@@ -169,7 +183,7 @@ export default {
       box-sizing: border-box;
       padding-left: pxRem(10);
       background-color: #e501ad;
-      border:none;
+      border: none;
       border-bottom: 1px solid #000;
     }
   }

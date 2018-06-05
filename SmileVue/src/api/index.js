@@ -42,7 +42,8 @@ const _ajax = (type, url, data) => {
       (res) => {
         
         if (res.status == '200') {
-          resolve(qs.parse(res.data))
+          console.log(res,'res.dataApi')
+          resolve(qs.parse(res))
         } else {
           reject({
             'err': '状态码不是200'
