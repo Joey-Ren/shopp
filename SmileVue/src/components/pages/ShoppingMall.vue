@@ -130,8 +130,9 @@ export default {
       //     console.log(err);
       //   });
       //第二种使用es6的解构赋值  //这里的第二个data要跟返回的数据名称data对应，比如返回数据名称是newdata，那么就是newdata
-      let { data: { data } } = await this.$http.goods();
+      let { data: { data },config:{method} } = await this.$http.goods();
       console.log(data, "es6解构赋值的data");
+      console.log(method, "es6解构赋值的method");
       this.swipeImages = data.slides; //轮播图
       this.categorys = data.category; //分类信息
       this.advertesPicture = data.advertesPicture; //提示广告
