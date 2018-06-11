@@ -5,7 +5,7 @@
       <van-field v-model="username" label="用户名" icon="clear" placeholder="请输入用户名" required></van-field>
       <van-field v-model="passworld" label="密码" icon="clear" placeholder="请输入密码" type="passworld" required></van-field>
       <div class="register-button">
-        <van-button type="primary" size="large">马上注册</van-button>
+        <van-button type="primary" size="large" @click="registerUser">马上注册</van-button>
       </div>
     </div>
   </div>
@@ -22,6 +22,19 @@
     methods: {
       goBack() {
         this.$router.go(-1)
+      },
+      //马上注册按钮
+     async registerUser(){
+       console.log('fdsafdasf');
+       
+        let params = {
+          username:this.username,
+          passworld:this.passworld
+        }
+      // let {data} =  this.$http.register(params)
+        let {data} =  this.$http.getregister(params)
+       console.log(data,'data');
+       
       }
     }
 

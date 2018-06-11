@@ -4,7 +4,6 @@ import axios from 'axios';
 import qs from 'qs'
 import store from '../store'
 import config from '../config'
-console.log(config,'config')
 axios.interceptors.request.use(config => {
   store.dispatch('showLoading', true)
   return config
@@ -42,7 +41,6 @@ const _ajax = (type, url, data) => {
       (res) => {
         
         if (res.status == '200') {
-          console.log(res,'res.dataApi')
           resolve(qs.parse(res))
         } else {
           reject({
@@ -83,5 +81,12 @@ var fetch = (function () {
 export default {
   goods: function (data) {
     return fetch.get("/floor", data)
+  },
+  //用户注册接口
+  register(data){
+    return fetch.post('/user/register',data)
+  },
+  getregister(data){
+    return fetch.get('/user',data)
   }
 }
