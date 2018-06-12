@@ -49,7 +49,6 @@ const connect = () => {
 
 }
 const initSchemas = ()=>{ 
-    console.log('initSchemas函数调用')
     glob.sync(resolve(__dirname,'./schema/','**/*.js')).forEach(require)
    
 }

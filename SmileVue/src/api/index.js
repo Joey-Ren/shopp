@@ -5,13 +5,13 @@ import qs from 'qs'
 import store from '../store'
 import config from '../config'
 axios.interceptors.request.use(config => {
-  store.dispatch('showLoading', true)
+  // store.dispatch('showLoading', true)
   return config
 }, error => {
   return Promise.reject(error)
 })
 axios.interceptors.response.use(response => {
-  store.dispatch('hideLoading',false)
+  // store.dispatch('hideLoading',false)
   return response
 }, error => {
   return Promise.reject(error)
@@ -24,7 +24,7 @@ const _ajax = (type, url, data) => {
 
   let httpDefaultOpts = { //axios的配置项---可以添加更多的配置  
     method: type,
-    url: config.baseUrl+url,
+    url: config.baseUrl + url,
     params: qs.stringify(data),
     data: qs.stringify(data),
   }
@@ -39,7 +39,7 @@ const _ajax = (type, url, data) => {
   let promise = new Promise(function (resolve, reject) {
     axios(httpDefaultOpts).then(
       (res) => {
-        
+
         if (res.status == '200') {
           resolve(qs.parse(res))
         } else {
@@ -50,7 +50,7 @@ const _ajax = (type, url, data) => {
       }
     ).catch(
       (err) => {
-        store.dispatch('hideLoading',false)
+        store.dispatch('hideLoading', false)
         console.log('ajax请求出错', err);
         reject(qs.parse({
           "err": "ajax请求出错"
@@ -83,10 +83,7 @@ export default {
     return fetch.get("/floor", data)
   },
   //用户注册接口
-  register(data){
-    return fetch.post('/user/register',data)
+  register(data) {
+    return fetch.post('/user/register', data)
   },
-  getregister(data){
-    return fetch.get('/user',data)
-  }
 }

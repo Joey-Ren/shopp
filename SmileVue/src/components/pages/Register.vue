@@ -16,7 +16,7 @@
     data() {
       return {
         username: null,
-        passworld:null,
+        passworld: null,
       }
     },
     methods: {
@@ -24,17 +24,40 @@
         this.$router.go(-1)
       },
       //马上注册按钮
-     async registerUser(){
-       console.log('fdsafdasf');
-       
-        let params = {
-          username:this.username,
-          passworld:this.passworld
+      async registerUser() {
+
+        if (!this.username) {
+          this.$toast.fail('请输入用户名')
+          return
         }
-      // let {data} =  this.$http.register(params)
-        let {data} =  this.$http.getregister(params)
-       console.log(data,'data');
-       
+        if (!this.passworld) {
+          this.$toast.fail('请输入密码')
+          return
+        }
+        let params = {
+          userName: this.username,
+          passworld: this.passworld
+        }
+        // let {data} =  this.$http.register(params)
+
+        try {
+          let {
+            data: {
+              code,
+              msg
+            }
+          } = await this.$http.register(params)
+          if (code == 200) {
+            this.$toast.success(msg)
+          } else {
+            this.$toast.fail('注册失败')
+          }
+        } catch (err) {
+          this.$toast.fail('注册失败')
+        }
+
+
+
       }
     }
 
@@ -43,10 +66,11 @@
 </script>
 
 <style scoped>
- .register{
+  .register {
     height: 100%;
 
- }
+  }
+
   .register-panel {
     width: 96%;
     border-radius: 5px;

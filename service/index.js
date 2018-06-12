@@ -13,17 +13,10 @@ const router = new Router()
 app.use(bodyParser())
 app.use(cors())
 //使用async await new Promise的时候必须resolve(),否则代码不会往下走
-// ;(async()=>{
-//    await connect()
-//    initSchemas()
-//     const User = mongoose.model('User')
-//     let oneUser = new User({userName:'ja5k12',passworld:'123456'})
-//     oneUser.save().then(()=>{
-//         console.log('插入成功')
-//     })
-
-
-// })()
+;(async()=>{
+   await connect()
+  await initSchemas()
+})()
 router.use('/user', user.routes())
 //加载路由中间件
 app.use(router.routes())
