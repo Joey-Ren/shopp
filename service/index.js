@@ -11,7 +11,31 @@ const {
 const user = require('./appApi/user.js')
 const router = new Router()
 app.use(bodyParser())
-app.use(cors())
+app.use(cors({
+    origin: function(ctx) {
+        // const regexp = new RegExp('/CORS');
+        // const regexpWith = new RegExp('/CORSWith');
+        // console.log(ctx.host ,'ctx.url');
+        // if(ctx.host){
+        //     return `http://${ctx.host}`;
+        // }
+        return '*'
+        // if (regexpWith.test(ctx.url)) {
+        //     return `http://${ctx.host}`;
+        // } else if(regexp.test(ctx.url)) {
+        //     return '*'
+        // } else if(~String(ctx.url).indexOf('/imgs/')) {
+        //     return `http://${ctx.host}`;
+        //     // return '*'
+        // }
+        // return false;
+    },
+    exposeHeaders: ['WWW-Authenticate', 'Server-Authorization', 'Date'],
+    maxAge: 100,
+    credentials: true,
+    allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-Custom-Header', 'anonymous'],
+}));
 //使用async await new Promise的时候必须resolve(),否则代码不会往下走
 ;(async()=>{
    await connect()

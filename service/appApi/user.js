@@ -27,5 +27,6 @@ router.post('/register',async(ctx)=>{
            msg:error
        }
    })
+
 })
 module.exports = router
