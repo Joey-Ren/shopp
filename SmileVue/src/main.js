@@ -18,7 +18,7 @@ import {
   List,
   NavBar,
   Field,
-  Toast
+  Toast,
 } from 'vant'
 import alert from './components/plugin/alert'
 import loading from './components/loading/'

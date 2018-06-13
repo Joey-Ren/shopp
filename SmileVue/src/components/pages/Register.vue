@@ -5,7 +5,7 @@
       <van-field v-model="username" label="用户名" icon="clear" placeholder="请输入用户名" required></van-field>
       <van-field v-model="passworld" label="密码" icon="clear" placeholder="请输入密码" type="passworld" required></van-field>
       <div class="register-button">
-        <van-button type="primary" size="large" @click="registerUser">马上注册</van-button>
+        <van-button type="primary" size="large" @click="registerUser" :loading="openLoading">马上注册</van-button>
       </div>
     </div>
   </div>
@@ -17,6 +17,7 @@
       return {
         username: null,
         passworld: null,
+        openLoading:false
       }
     },
     methods: {
@@ -38,6 +39,7 @@
           userName: this.username,
           passworld: this.passworld
         }
+        this.openLoading = true
         // let {data} =  this.$http.register(params)
 
         try {
@@ -52,7 +54,9 @@
           } else {
             this.$toast.fail('注册失败')
           }
+          this.openLoading = false
         } catch (err) {
+          this.openLoading = false
           this.$toast.fail('注册失败')
         }
 
