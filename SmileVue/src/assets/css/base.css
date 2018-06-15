@@ -45,3 +45,6 @@ input[placeholder], [placeholder], *[placeholder] {
   :-ms-input-placeholder { /* Internet Explorer 10+ */ 
     font-size:16px; 
   }
+  .red{
+    color: red;
+  }

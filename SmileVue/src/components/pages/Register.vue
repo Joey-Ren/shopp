@@ -2,8 +2,20 @@
   <div class="register">
     <van-nav-bar title="用户注册" left-text="返回" left-arrow @click="goBack"></van-nav-bar>
     <div class="register-panel">
-      <van-field v-model="username" label="用户名" :error-message="errorName" icon="clear" placeholder="请输入用户名" required></van-field>
-      <van-field v-model="passworld" label="密码" :error-message="errorpsd" icon="clear" placeholder="请输入密码" type="passworld" required></van-field>
+      <van-field v-model="user.username" label="用户名" :error-message="errorName" icon="clear" placeholder="请输入用户名" required></van-field>
+      <van-field v-model="user.passworld" label="密码" :error-message="errorpsd" icon="clear" placeholder="请输入密码" type="passworld"
+        required></van-field>
+      <div class="imgs">
+        <div v-if="user.picture">
+          <img :src="user.picture" v-if="user.picture" title="点击放大" style="border-radius: 4px;margin-right: 20px" width="90">
+        </div>
+
+        <span class="red">*</span>
+        <label>头像</label>
+        <van-uploader :after-read="onRead">
+          <van-icon name="photograph" />
+        </van-uploader>
+      </div>
       <div class="register-button">
         <van-button type="primary" size="large" @click="registerUser" :loading="openLoading">马上注册</van-button>
       </div>
@@ -15,11 +27,14 @@
   export default {
     data() {
       return {
-        username: null,
-        passworld: null,
-        openLoading:false,
-        errorName:null,
-        errorpsd:null
+        user: {
+          username: null,
+          passworld: null,
+          picture: null
+        },
+        openLoading: false,
+        errorName: null,
+        errorpsd: null
       }
     },
     methods: {
@@ -29,21 +44,21 @@
       //马上注册按钮
       async registerUser() {
 
-        if (!this.username) {
+        if (!this.user.username) {
           this.errorName = '请输入用户名'
           return
-        }else{
+        } else {
           this.errorName = null
         }
-        if (!this.passworld) {
+        if (!this.user.passworld) {
           this.errorpsd = '请输入密码'
           return
-        }else{
-           this.errorpsd = null
+        } else {
+          this.errorpsd = null
         }
         let params = {
-          userName: this.username,
-          passworld: this.passworld
+          userName: this.user.username,
+          passworld: this.user.passworld
         }
         this.openLoading = true
         // let {data} =  this.$http.register(params)
@@ -68,7 +83,15 @@
 
 
 
+      },
+      onRead(file) {
+        this.user.picture = file.content
+
       }
+
+    },
+    components: {
+   
     }
 
   }
@@ -90,6 +113,11 @@
 
   .register-button {
     padding-top: 10px;
+  }
+
+  .imgs {
+    font-size: 14px;
+    color: #333;
   }
 
 </style>
