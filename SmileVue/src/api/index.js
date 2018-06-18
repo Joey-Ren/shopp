@@ -86,4 +86,8 @@ export default {
   register(data) {
     return fetch.post('/user/register', data)
   },
+  //用户登录接口
+  login(data){
+      return fetch.post('/user/login',data)
+  }
 }

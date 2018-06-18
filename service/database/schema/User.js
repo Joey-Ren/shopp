@@ -8,7 +8,7 @@ const SALT_WORK_FACTOR = 10
 const UserSchema = new Schema({
     UserId:ObjectId,
     userName:{unique:true,type:String},
-    passworld:String,
+    password:String,
     createAt:{type:Date,default:Date.now()},
     lastLoginAt:{type:Date,default:Date.now()}
 
@@ -17,14 +17,27 @@ const UserSchema = new Schema({
 UserSchema.pre('save',function(next){
     bcrypt.genSalt(SALT_WORK_FACTOR,(err,salt)=>{
         if(err)return next(err)
-        bcrypt.hash(this.passworld,salt,(err,newHash)=>{
+        bcrypt.hash(this.password,salt,(err,newHash)=>{
             if(err)return next(err)
-            this.passworld = newHash
+            this.password = newHash
             next()
         })
     })
 
 })
+UserSchema.methods ={
+    comparePassword:(_password,password)=>{
+        return new Promise((resolve,reject)=>{
+            bcrypt.compare(_password,password,(err,isMatch)=>{
+                if(!err){
+                    resolve(isMatch)
+                }else{
+                    reject(err)
+                }
+            })
+        })
+    }
+}
 
 //发布模型
 

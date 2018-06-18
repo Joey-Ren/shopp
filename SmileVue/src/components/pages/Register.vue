@@ -3,7 +3,7 @@
     <van-nav-bar title="用户注册" left-text="返回" left-arrow @click="goBack"></van-nav-bar>
     <div class="register-panel">
       <van-field v-model="user.username" label="用户名" :error-message="errorName" icon="clear" placeholder="请输入用户名" required></van-field>
-      <van-field v-model="user.passworld" label="密码" :error-message="errorpsd" icon="clear" placeholder="请输入密码" type="passworld"
+      <van-field v-model="user.passworld" label="密码" :error-message="errorpsd" icon="clear" placeholder="请输入密码" type="password"
         required></van-field>
       <div class="imgs">
         <div v-if="user.picture">
@@ -58,7 +58,7 @@
         }
         let params = {
           userName: this.user.username,
-          passworld: this.user.passworld
+          password: this.user.passworld
         }
         this.openLoading = true
         // let {data} =  this.$http.register(params)

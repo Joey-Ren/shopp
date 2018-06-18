@@ -10,6 +10,9 @@ const gooddetails = () =>
   import ('@/components/pages/gooddetails')
 const Register = () =>
   import ('@/components/pages/Register')
+const Login = ()=>
+  import ('@/components/pages/Login')
+
 Vue.use(Router)
 
 export default new Router({
@@ -27,6 +30,11 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Register
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
     }
   ]
 })
