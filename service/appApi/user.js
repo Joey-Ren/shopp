@@ -48,20 +48,20 @@ router.post('/login', async (ctx) => {
                     ctx.body = {
                         code: 200,
                         message: isMatch,
-                        data:result
+                        res:result
                     }
                 })
                 .catch(error => {
                     //出现异常，返回异常
                     console.log(error,'error login')
                     ctx.body = {
-                        code: 200,
+                        code: 500,
                         message: error
                     }
                 })
         } else {
             ctx.body = {
-                code: 200,
+                code: 500,
                 message: '用户名不存在'
             }
         }

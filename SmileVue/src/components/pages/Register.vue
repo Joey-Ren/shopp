@@ -72,6 +72,9 @@
           } = await this.$http.register(params)
           if (code == 200) {
             this.$toast.success(msg)
+            this.$router.push({
+              name:'login'
+            })
           } else {
             this.$toast.fail('注册失败')
           }

@@ -27,14 +27,22 @@ export default {
   data() {
     return {
       user: {
-        username: '',
-        passworld: '',
-        picture: ''
+        username: "",
+        passworld: "",
+        picture: ""
       },
       openLoading: false,
       errorName: null,
       errorpsd: null
     };
+  },
+  created() {
+    if (localStorage.getItem("user")) {
+      this.$toast.success("你已登录");
+      this.$router.push({
+        name: "ShoppingMall"
+      });
+    }
   },
   methods: {
     goBack() {
@@ -42,48 +50,55 @@ export default {
     },
     //马上注册按钮
     async registerUser() {
-        this.yz()&&this.re()
+      this.yz() && this.re();
     },
     onRead(file) {
       this.user.picture = file.content;
     },
     yz() {
-      let isOk = true
-      if (this.user.username.length<5) {
+      let isOk = true;
+      if (this.user.username.length < 5) {
         this.errorName = "用户名不能小于5位";
-        isOk = false
+        isOk = false;
       } else {
         this.errorName = null;
-        
       }
-      if (this.user.passworld.length<6) {
+      if (this.user.passworld.length < 6) {
         this.errorpsd = "密码不能小于6位";
-        isOk = false
+        isOk = false;
       } else {
         this.errorpsd = null;
-       
       }
-      return isOk
+      return isOk;
     },
-   async re(){
-          let params = {
+    async re() {
+      let params = {
         userName: this.user.username,
         password: this.user.passworld
       };
       this.openLoading = true;
-      // let {data} =  this.$http.register(params)
-
       try {
-        let { data: { code, message } } = await this.$http.login(params);
-        if (code == 200&&message) {
-          this.$toast.success(message);
+        let { data: { code, message, res } } = await this.$http.login(params);
+        if (code == 200 && message) {
+          new Promise((resolve, reject) => {
+            localStorage.setItem("user", JSON.stringify(res));
+            setTimeout(() => {
+              resolve();
+            }, 500);
+          }).then(() => {
+            this.$router.push({
+              name: "ShoppingMall"
+            });
+          }).catch((err)=>{
+              this.$toast.fail('登录状态保存失败')
+          });
         } else {
           this.$toast.fail("登录失败");
         }
         this.openLoading = false;
       } catch (err) {
         this.openLoading = false;
-        this.$toast.fail('用户名不存在');
+        this.$toast.fail("登录失败");
       }
     }
   },
