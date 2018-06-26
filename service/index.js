@@ -9,6 +9,7 @@ const {
     initSchemas
 } = require('./database/init.js')
 const user = require('./appApi/user.js')
+const good = require('./appApi/goods.js')
 const router = new Router()
 app.use(bodyParser())
 app.use(cors({
@@ -42,6 +43,7 @@ app.use(cors({
   await initSchemas()
 })()
 router.use('/user', user.routes())
+router.use('/good',good.routes())
 //加载路由中间件
 app.use(router.routes())
 app.use(router.allowedMethods())
