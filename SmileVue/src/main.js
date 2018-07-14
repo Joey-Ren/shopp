@@ -33,7 +33,7 @@ Object.keys(filters).forEach((key) => {
   Vue.filter(key, filters[key])
 })
 Vue.config.productionTip = false
-
+Vue.prototype.$base64 = require('js-base64').Base64
 /* eslint-disable no-new */
 new Vue({
   store,

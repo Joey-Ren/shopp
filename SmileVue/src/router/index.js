@@ -16,7 +16,12 @@ const Login = ()=>
 Vue.use(Router)
 
 export default new Router({
-  routes: [{
+  routes: [
+    {
+      path:'',
+      redirect:'/register'
+    },
+    {
       path: '/',
       name: 'ShoppingMall',
       component: ShoppingMall
