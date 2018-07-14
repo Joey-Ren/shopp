@@ -80,7 +80,7 @@ var fetch = (function () {
 
 export default {
   goods: function (data) {
-    return fetch.get("/floor", data)
+    return axios.get("https://www.easy-mock.com/mock/5ae26ea500247c2aa1efe478/shopp/api/floor", data)
   },
   //用户注册接口
   register(data) {
@@ -89,5 +89,9 @@ export default {
   //用户登录接口
   login(data){
       return fetch.post('/user/login',data)
+  },
+  //获取商品详情
+  getGoodsInfo(data){
+      return fetch.post('/good/getDetailGoodsInfo',data)
   }
 }

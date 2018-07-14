@@ -20,14 +20,16 @@ import {
   Field,
   Toast,
   Uploader,
-  Icon
+  Icon,
+  Tab,
+  Tabs
 } from 'vant'
 import alert from './components/plugin/alert'
 import loading from './components/loading/'
 import store from './store'
 require('./assets/util/vconsole.js')
 Vue.prototype.$http = api;
-Vue.use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload).use(VueAwesomeSwiper).use(List).use(loading).use(alert).use(NavBar).use(Field).use(Toast).use(Uploader).use(Icon)
+Vue.use(Button).use(Row).use(Col).use(Swipe).use(SwipeItem).use(Lazyload).use(VueAwesomeSwiper).use(List).use(loading).use(alert).use(NavBar).use(Field).use(Toast).use(Uploader).use(Icon).use(Tab).use(Tabs)
 //注入全局过滤器
 Object.keys(filters).forEach((key) => {
   Vue.filter(key, filters[key])

@@ -8,6 +8,9 @@ switch(enconfig){
     break;
     case 'test':
     baseUrl = 'http://localhost:3000'
+    break;
+    case 'ip':
+    baseUrl = '192.168.1.101'
     break
 
 }
