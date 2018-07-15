@@ -87,9 +87,9 @@ export default {
       }
     },
     dropImageChanged(base64Path,files) {
-      this.imgSrc.push(base64Path);
+      this.$set(this.imgSrc,this.imgSrc.length+1,base64Path)
       //封装的七牛云使用方法
-      this.$qiniu64(base64Path,files[0].name)
+      this.$qiniu64(base64Path)
     },
     //封装的七牛云插件回调
     qiniuUpComplete(data){
