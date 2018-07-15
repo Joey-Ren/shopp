@@ -17,10 +17,10 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    // {
-    //   path:'',
-    //   redirect:'/register'
-    // },
+    {
+      path:'',
+      redirect:'/register'
+    },
     {
       path: '/',
       name: 'ShoppingMall',

@@ -3,8 +3,7 @@
     <van-nav-bar title="用户注册" left-text="返回" left-arrow @click="goBack"></van-nav-bar>
     <div class="register-panel">
       <van-field v-model="user.username" label="用户名" :error-message="errorName" icon="clear" placeholder="请输入用户名" required></van-field>
-      <van-field v-model="user.passworld" label="密码" :error-message="errorpsd" icon="clear" placeholder="请输入密码" type="password"
-        required></van-field>
+      <van-field v-model="user.passworld" label="密码" :error-message="errorpsd" icon="clear" placeholder="请输入密码" type="password" required></van-field>
       <div class="imgs">
         <div v-if="user.picture">
           <img :src="user.picture" v-if="user.picture" title="点击放大" style="border-radius: 4px;margin-right: 20px" width="90">
@@ -12,8 +11,11 @@
 
         <span class="red">*</span>
         <label>头像</label>
-        <img :src="imgSrc" alt="" v-if="imgSrc">
-        <input type="file" name="imgFile" ref="imgFile" @change="imgFileChange">
+        <viewer :images="imgSrc" style="display:inline-block">
+          <img :src="src" v-for="(src,index) in imgSrc" :key="index" v-if="src" title="点击放大" style="border-radius: 4px;margin-right: 20px;" width="90" height="90">
+        </viewer>
+        <CropImage text="选择图片" cropRatio="4:3" style="width: 58px;padding: 0 15px;display:inline-block;" @dropImageChanged="dropImageChanged"></CropImage>
+        <!-- <input type="file" name="imgFile" ref="imgFile" @change="imgFileChange"> -->
       </div>
       <div class="register-button">
         <van-button type="primary" size="large" @click="registerUser" :loading="openLoading">马上注册</van-button>
@@ -23,6 +25,9 @@
 </template>
 
 <script>
+import CropImage from "@/common/corp/CropImage";
+import "viewerjs/dist/viewer.css";
+import Viewer from "v-viewer/src/component";
 export default {
   data() {
     return {
@@ -34,8 +39,11 @@ export default {
       openLoading: false,
       errorName: null,
       errorpsd: null,
-      imgSrc: ""
+      imgSrc: []
     };
+  },
+  created () {
+    this.$Bus.$on('complete',this.qiniuUpComplete)
   },
   methods: {
     goBack() {
@@ -78,35 +86,33 @@ export default {
         this.$toast.fail("注册失败");
       }
     },
-    imgFileChange() {
-      let file = this.$refs.imgFile.files[0];
-      let fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = res => {
-        this.imgSrc = res.target.result;
-        this.putb64(res.target.result.split('data:image/jpeg;base64,')[1],`images/${file.name}`)
-      };
+    dropImageChanged(base64Path,files) {
+      this.imgSrc.push(base64Path);
+      //封装的七牛云使用方法
+      this.$qiniu64(base64Path,files[0].name)
     },
-    putb64(base64Path,fileName) {
-      var pic = base64Path;
-      let fName = this.$base64.encode(fileName)
-      var url = "http://upload.qiniup.com/putb64/-1/key/"+fName; //非华东空间需要根据注意事项 1 修改上传域名
-      var xhr = new XMLHttpRequest();
-      xhr.open("POST", url, true);
-      xhr.setRequestHeader("Content-Type", "application/octet-stream");
-      xhr.setRequestHeader(
-        "Authorization",
-        "UpToken EJSMfaW17JqEKSXvq3qnwBGrL3udouIqBlRl5Xpy:cSZeIR93wQ65sCEsk5evxRyXMyc=:eyJzY29wZSI6ImltYWdlcyIsImRlYWRsaW5lIjoxNTMxNTYzMTY3fQ=="
-      );
-      xhr.send(pic);
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4) {
-          console.log(xhr.responseText);
-        }
-      };
+    //封装的七牛云插件回调
+    qiniuUpComplete(data){
+     let httpImgSrc = `http://pah1tfvgs.bkt.clouddn.com/${data.key}` 
+      this.$set(this.imgSrc,this.imgSrc.length-1,httpImgSrc)
+      
     }
+    // imgFileChange() {
+    //   let file = this.$refs.imgFile.files[0];
+    //   let fileReader = new FileReader();
+    //   fileReader.readAsDataURL(file);
+    //   fileReader.onload = res => {
+    //     //this.$set(this.imgSrc,0,res.target.result) //上传一张图片
+    //     this.imgSrc.push(res.target.result); //上传多张图片
+    //     this.putb64(
+    //       res.target.result.split("data:image/jpeg;base64,")[1],
+    //       `images/${file.name}`
+    //     );
+    //   };
+    // },
+   
   },
-  components: {}
+  components: { Viewer, CropImage }
 };
 </script>
 

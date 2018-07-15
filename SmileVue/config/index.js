@@ -4,10 +4,10 @@
 
 const path = require('path')
 let HOST ;
-let ipconfig = 'env'  //fig是本地ip;env是localhost
+let ipconfig = 'fig'  //fig是本地ip;env是localhost
 switch(ipconfig){
   case "fig":
-   HOST = '192.168.1.1';
+   HOST = '192.168.1.101';
   break;
   case "env":
    HOST = 'localhost'
