@@ -18,10 +18,10 @@ function install(Vue) {
       "Authorization",
       "UpToken EJSMfaW17JqEKSXvq3qnwBGrL3udouIqBlRl5Xpy:MT2bOmAZCnGV_lfXdSZ_LyhR0aA=:eyJzY29wZSI6ImltYWdlcyIsImRlYWRsaW5lIjoxNTMxNjI4MjQ4fQ=="
     );
-    xhr.setRequestHeader(
-      "Authorization",
-      "UpToken 你的七牛云token"
-    );
+    // xhr.setRequestHeader(
+    //   "Authorization",
+    //   "UpToken 你的七牛云token"
+    // );
     xhr.send(pic);
     xhr.onreadystatechange = function () {
       if (xhr.readyState == 4) {
