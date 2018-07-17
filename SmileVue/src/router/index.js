@@ -4,23 +4,20 @@ import Router from 'vue-router'
 //import ShoppingMall from '@/components/pages/ShoppingMall'
 //import gooddetails from '@/components/pages/gooddetails'
 // 使用路由懒加载来加载组件(提高加载速度)
-const ShoppingMall = () =>
-  import ('@/components/pages/ShoppingMall')
-const gooddetails = () =>
-  import ('@/components/pages/gooddetails')
-const Register = () =>
-  import ('@/components/pages/Register')
-const Login = ()=>
-  import ('@/components/pages/Login')
+const ShoppingMall = () =>import ('@/components/pages/ShoppingMall')
+const gooddetails = () =>import ('@/components/pages/gooddetails')
+const Register = () =>import ('@/components/pages/Register')
+const Login = ()=>import ('@/components/pages/Login')
+const CategoryList = ()=>import('@/components/pages/CategoryList')
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
-    {
-      path:'',
-      redirect:'/register'
-    },
+    // {
+    //   path:'',
+    //   redirect:'/register'
+    // },
     {
       path: '/',
       name: 'ShoppingMall',
@@ -41,5 +38,10 @@ export default new Router({
       name: 'login',
       component: Login
     },
+    {
+      path:'/categoryList',
+      name:'categoryList',
+      component:CategoryList
+    }
   ]
 })

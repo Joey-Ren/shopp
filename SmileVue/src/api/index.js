@@ -93,5 +93,9 @@ export default {
   //获取商品详情
   getGoodsInfo(data){
       return fetch.post('/good/getDetailGoodsInfo',data)
+  },
+  //读取大类别列表
+  getCategoryList(data){
+      return fetch.get(`/good/getCategoryList`,data)
   }
 }

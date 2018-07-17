@@ -3,6 +3,7 @@ let router = new Router()
 const mongoose = require('mongoose')
 const fs = require('fs')
 const path = require('path')
+//读取json文件存入数据库
 router.get('/insertAllGoodsInfo', async (ctx) => {
     fs.readFile(path.resolve(__dirname,'../','data_json/newGoods.json'), 'utf8', (err, data) => {
         let newdata = JSON.parse(data)
@@ -27,6 +28,7 @@ router.get('/insertAllGoodsInfo', async (ctx) => {
 
     ctx.body = '开始导入数据'
 })
+//读取json文件存入数据库
 router.get('/insertAllCaterogy',async(ctx)=>{
     fs.readFile('./data_json/category.json','utf8',(err,data)=>{
         data = JSON.parse(data)
@@ -47,6 +49,7 @@ router.get('/insertAllCaterogy',async(ctx)=>{
     })
     ctx.body = `开始插入数据`
 })
+//读取json文件存入数据库
 router.get('/insertAllCaterogySub',async(ctx)=>{
     fs.readFile('./data_json/category_sub.json','utf8',(err,data)=>{
         data = JSON.parse(data)
