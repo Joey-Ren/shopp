@@ -61,7 +61,9 @@
 </script>
 
 <style scoped>
-
+#leftNav{
+  background-color: aliceblue;
+}
 #leftNav ul li {
     line-height: 0.8rem;
     border-bottom:1px solid #E4E7ED;
