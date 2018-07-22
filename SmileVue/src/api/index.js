@@ -97,5 +97,9 @@ export default {
   //读取大类别列表
   getCategoryList(data){
       return fetch.get(`/good/getCategoryList`,data)
+  },
+  //根据大类别id来读取小类别
+  getCategorySubList(data){
+      return fetch.post(`/good/getCategorySubList`,data)
   }
 }

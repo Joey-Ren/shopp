@@ -93,10 +93,10 @@ router.get('/getCategoryList',async(ctx)=>{
     }
 })
 // 读取小类别的API制作
-router.get('/getCategorySubList',async(ctx)=>{
+router.post('/getCategorySubList',async(ctx)=>{
     try{
-         //let categoryId = ctx.request.body.categoryId
-        let categoryId = 1
+        let categoryId = ctx.request.body.categoryId
+        console.log(categoryId,'categoryId');
         const CategorySub = mongoose.model('CategorySub')
         let result = await CategorySub.find({MALL_CATEGORY_ID:categoryId}).exec()
         ctx.body = {code:200,message:result}
